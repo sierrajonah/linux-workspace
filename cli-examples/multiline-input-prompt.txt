@@ -1,0 +1,27 @@
+#!/bin/bash
+#SJIO
+delimiter="::DONE"
+dynamic_varname="tempvar_$(mktemp -u XXXXXXXXXXXX)"
+
+# Initialize with empty value using proper syntax
+declare "$dynamic_varname="
+declare -n dynamic_var="$dynamic_varname"
+
+echo "Enter your multi-line input. End with '$delimiter' to store it in \$$dynamic_varname"
+echo "Currently, \$$dynamic_varname contains:"
+echo "${!dynamic_varname}"  # Show initial empty value
+
+while IFS= read -r line; do
+  if [[ "$line" == "$delimiter" ]]; then
+    break
+  fi
+  # Properly append with newline using += and quoting
+  dynamic_var+="$line"$'\n'
+done
+
+# Confirmation (or for further handling)
+#
+echo -e "\n\$$dynamic_varname contains (${#dynamic_var} characters):"
+echo "${!dynamic_varname}"
+# or
+# ./second_script.sh "$dynamic_var"

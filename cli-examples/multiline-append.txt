@@ -1,0 +1,6 @@
+cat >> $tmp_filename << EOF
+The quick brown fox 
+jumped over the lazy dogs.
+
+SQUIRREL!
+EOF
