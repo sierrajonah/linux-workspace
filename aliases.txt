@@ -1,0 +1,1 @@
+alias grep.context10.regexp='grep -A10 -B10 -e'
